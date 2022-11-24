@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-//@EnableSwagger2
 public class LeavemanagementApplication {
 
 //  http://localhost:9000/leave-management/swagger-ui.html   --Swagger URL
