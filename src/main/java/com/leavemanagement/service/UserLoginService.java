@@ -8,22 +8,21 @@ import java.util.stream.Collectors;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import com.leavemanagement.entity.FinalResponse;
+import com.leavemanagement.entity.Role;
+import com.leavemanagement.entity.Users;
+import com.leavemanagement.repository.RoleRepo;
+import com.leavemanagement.repository.UserLoginRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.leavemanagement.dto.UserDto;
-import com.leavemanagement.entity.FinalResponse;
-import com.leavemanagement.entity.Role;
-import com.leavemanagement.entity.Users;
 import com.leavemanagement.exception.UserNotFoundExce;
-import com.leavemanagement.repository.RoleRepo;
-import com.leavemanagement.repository.UserLoginRepo;
 
 @Service
 public class UserLoginService {

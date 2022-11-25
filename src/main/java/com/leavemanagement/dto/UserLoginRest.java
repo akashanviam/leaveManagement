@@ -1,4 +1,4 @@
-package com.leavemanagement.controller;
+package com.leavemanagement.dto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
