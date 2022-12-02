@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 */
 @SpringBootApplication
 public class LeavemanagementApplication{
-//  http://localhost:9000/leave-management/swagger-ui.html   --Swagger URL
+//  http://localhost:8080/leave-management/swagger-ui.html   --Swagger URL
 	public static void main(String[] args) {
 		SpringApplication.run(LeavemanagementApplication.class, args);
 	}

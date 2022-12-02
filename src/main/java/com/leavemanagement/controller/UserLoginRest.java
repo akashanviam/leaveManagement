@@ -1,5 +1,10 @@
-package com.leavemanagement.dto;
+package com.leavemanagement.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leavemanagement.dto.UserDto;
 import com.leavemanagement.entity.FinalResponse;
+import com.leavemanagement.entity.Users;
 import com.leavemanagement.exception.UserNotFoundExce;
 import com.leavemanagement.service.UserLoginService;
 
@@ -35,7 +41,7 @@ public class UserLoginRest {
 	// handler method to handle user registration form request
 	@PostMapping("/register")
 	public ResponseEntity<FinalResponse> registration(@Valid @RequestBody UserDto userDto, BindingResult result,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
 		return userService.saveUser(userDto, getSiteURL(request));
 	}
 
@@ -51,5 +57,17 @@ public class UserLoginRest {
 		} else {
 			return "verify_fail";
 		}
+	}
+	
+	@SuppressWarnings("static-access")
+	@GetMapping("/userDetails")
+	public ResponseEntity<List<UserDto>> findAll() {
+		List<UserDto> findAllUsers = userService.findAllUsers();
+		if(findAllUsers.size()<=0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}else {
+			return ResponseEntity.of(Optional.of(findAllUsers)).ok(findAllUsers);
+		}
+		
 	}
 }

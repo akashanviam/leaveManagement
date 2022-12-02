@@ -14,36 +14,39 @@ import java.util.Optional;
 @RestController
 public class LeaveController {
 
-    @Autowired
-    private LeaveService leaveService;
+	@Autowired
+	private LeaveService leaveService;
 
-    private final Logger Logger =
-            LoggerFactory.getLogger(LeaveController.class);
+	private final Logger Logger = LoggerFactory.getLogger(LeaveController.class);
 
-    @PostMapping("/leave")
-    public Leave createLeave(@RequestBody Leave leave){
-        Logger.info("Inside save data in LeaveController");
-        return leaveService.createLeave(leave);
-    }
-    @GetMapping("/leave")
-    public List<Leave> fetchLeaveByList(){
-        Logger.info("Inside fetch data in LeaveController");
-        return leaveService.fetchLeaveByList();
-    }
-    @GetMapping("/leave/{id}")
-     public Optional<Leave> fetchLeaveById(@PathVariable("id") Long id) throws  LeaveNotFoundException {
-        Logger.info("Inside fetch data by id in LeaveController");
-        return leaveService.fetchLeaveById(id);
-     }
-     @PutMapping("/leave/{id}")
-     public Leave updateLeave(@RequestBody Leave leave){
-         Logger.info("Inside update data  in LeaveController");
-        return leaveService.updateLeave(leave);
-     }
-     @DeleteMapping("/leave/{id}")
-     public String deleteLeave(@PathVariable("id") Long id){
-         Logger.info("Inside delete  data by id in LeaveController");
-     return leaveService.deleteLeave(id);
-     }
+	@PostMapping("/leave")
+	public Leave createLeave(@RequestBody Leave leave) {
+		Logger.info("Inside save data in LeaveController");
+		return leaveService.createLeave(leave);
+	}
+
+	@GetMapping("/leave")
+	public List<Leave> fetchLeaveByList() {
+		Logger.info("Inside fetch data in LeaveController");
+		return leaveService.fetchLeaveByList();
+	}
+
+	@GetMapping("/leave/{id}")
+	public Optional<Leave> fetchLeaveById(@PathVariable("id") Long id) throws LeaveNotFoundException {
+		Logger.info("Inside fetch data by id in LeaveController");
+		return leaveService.fetchLeaveById(id);
+	}
+
+	@PutMapping("/leave/{id}")
+	public Leave updateLeave(@RequestBody Leave leave) {
+		Logger.info("Inside update data  in LeaveController");
+		return leaveService.updateLeave(leave);
+	}
+
+	@DeleteMapping("/leave/{id}")
+	public String deleteLeave(@PathVariable("id") Long id) {
+		Logger.info("Inside delete  data by id in LeaveController");
+		return leaveService.deleteLeave(id);
+	}
 
 }
