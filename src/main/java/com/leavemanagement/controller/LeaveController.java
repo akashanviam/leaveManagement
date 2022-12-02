@@ -1,5 +1,6 @@
 package com.leavemanagement.controller;
 
+import com.leavemanagement.entity.FinalResponse;
 import com.leavemanagement.entity.Leave;
 import com.leavemanagement.error.LeaveNotFoundException;
 import com.leavemanagement.service.LeaveService;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/leave")
 public class LeaveController {
 
 	@Autowired
@@ -19,10 +21,10 @@ public class LeaveController {
 
 	private final Logger Logger = LoggerFactory.getLogger(LeaveController.class);
 
-	@PostMapping("/leave")
-	public Leave createLeave(@RequestBody Leave leave) {
+	@PostMapping("/_create")
+	public FinalResponse create(@RequestBody Leave leave) {
 		Logger.info("Inside save data in LeaveController");
-		return leaveService.createLeave(leave);
+		return leaveService.create(leave);
 	}
 
 	@GetMapping("/leave")
