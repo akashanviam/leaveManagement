@@ -1,17 +1,10 @@
 package com.leavemanagement.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,18 +21,37 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "Emp_Name")
+    @Size(min=3,max=50,message="min 2 and max 20 characters are allowed !!")
     private String name;
+
     @NotNull(message="Please enter your Mobile number!")
-    @Column(length = 10, unique = true, nullable = false)
+    @Size(message="digits should be 10")
+    @Column(length = 10, unique = true, nullable = false, name = "Mobile_Number")
     private String mobileNumber;
-    @Column(unique = true, nullable = false)
+
+    @Column(unique = true, nullable = false, name = "Email")
     @Email
     private String email;
+
+    @Column(name = "Address",nullable = false)
     private String address;
-    private String dob;
+
+    @Column(name = "Date_Of_Birth")
+    private String dateOfBirth;
+
+    @Column(name = "Emp_Id", nullable = false)
     private String empId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "leave_cl", joinColumns = {@JoinColumn(name = "emp_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "leave_id", referencedColumnName = "id") })
-	private Leave leave; 
+
+    @Column(name = "Emergency_Number", nullable = false)
+    private String emergencyNumber;
+    
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
+//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(name = "leave_cl", joinColumns = {@JoinColumn(name = "emp_id", referencedColumnName = "id") }, inverseJoinColumns = {
+//					@JoinColumn(name = "leave_id", referencedColumnName = "id") })
+//	private Leave leave; 
 }

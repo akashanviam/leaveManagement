@@ -1,16 +1,23 @@
 package com.leavemanagement.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.leavemanagement.dectionary.LeaveStatus;
 import com.leavemanagement.entity.FinalResponse;
 import com.leavemanagement.entity.Leave;
-import com.leavemanagement.error.LeaveNotFoundException;
 import com.leavemanagement.service.LeaveService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/leave")
@@ -19,36 +26,36 @@ public class LeaveController {
 	@Autowired
 	private LeaveService leaveService;
 
-	private final Logger Logger = LoggerFactory.getLogger(LeaveController.class);
-
-	@PostMapping("/_create")
-	public FinalResponse create(@RequestBody Leave leave) {
-		Logger.info("Inside save data in LeaveController");
-		return leaveService.create(leave);
+	/**
+	 * @RequestBody leave ,request
+	 * @return FinalResponse with leaveStatus, SiteURL and  request
+	 */
+	@PostMapping("/apply-leave")
+	public ResponseEntity<FinalResponse> getCreate(@RequestBody Leave leave, BindingResult result, HttpServletRequest request) {
+		return leaveService.getCreate(leave, getSiteURL(request));
 	}
 
-	@GetMapping("/leave")
-	public List<Leave> fetchLeaveByList() {
-		Logger.info("Inside fetch data in LeaveController");
-		return leaveService.fetchLeaveByList();
+	private String getSiteURL(HttpServletRequest request) {
+		String siteURL = request.getRequestURL().toString();
+		return siteURL.replace(request.getServletPath(), "");
 	}
 
-	@GetMapping("/leave/{id}")
-	public Optional<Leave> fetchLeaveById(@PathVariable("id") Long id) throws LeaveNotFoundException {
-		Logger.info("Inside fetch data by id in LeaveController");
-		return leaveService.fetchLeaveById(id);
+	/**
+	 * @PathVariable empId
+	 * @return list if leave with empId
+	 */
+	@GetMapping("/allLeave/{empId}")
+	private List<Leave> getLeaveByEmpId(@PathVariable("empId") String empId) {
+		return leaveService.getLeaveByEmpId(empId);
 	}
-
-	@PutMapping("/leave/{id}")
-	public Leave updateLeave(@RequestBody Leave leave) {
-		Logger.info("Inside update data  in LeaveController");
-		return leaveService.updateLeave(leave);
-	}
-
-	@DeleteMapping("/leave/{id}")
-	public String deleteLeave(@PathVariable("id") Long id) {
-		Logger.info("Inside delete  data by id in LeaveController");
-		return leaveService.deleteLeave(id);
+	
+	@GetMapping("/test")
+	public String getallEnum() {
+		LeaveStatus[] values = LeaveStatus.values();
+		for(LeaveStatus ex:values) {
+			System.out.println(ex.getName());
+		}
+		return null;
 	}
 
 }

@@ -31,7 +31,7 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
    private ApiInfo apiInfo() {
        return new ApiInfoBuilder()              
                .title("Leave Management")
-               .description("Servicesx")               
+               .description("Sheetal Ma'am")               
                .build();
    }
 

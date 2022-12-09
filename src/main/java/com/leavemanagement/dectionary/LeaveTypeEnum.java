@@ -5,22 +5,21 @@ import lombok.Getter;
 @Getter
 public enum LeaveTypeEnum {
 
-	 EarnedLeave("EL","Earned Leave"),
-	 CasualLeave("CL","Casual Leave"),
-	 SickLeave("SL","Sick Leave"),
-	 LeaveWithoutPay("LWP","Leave Without Pay"),
-	 MaternityLeave("ML","Maternity Leave"),
-	 MarriageLeave("MrL","Marriage Leave"),
-	 PaternityLeave("PL","PaternityLeave");
+	 EARNEDLEAVE("Earned Leave"),
+	 CASUALLEAVE("Casual Leave"),
+	 SICKLEAVE("Sick Leave"),
+	 LEAVEWITHOUTPAY("Leave Without Pay"),
+	 MATERNITYLEAVE("Maternity Leave"),
+	 MARRIAGELEAVE("Marriage Leave"),
+	 PATERNITYLEAVE("PaternityLeave");
 
 	
-	private String key;
+	private final String key;
 	private String value;
 
-	LeaveTypeEnum(String key, String value) {
+	LeaveTypeEnum(String key) {
 		// TODO Auto-generated constructor stub
 		this.key=key;
-		this.value=value;
 	}
 	
 	
